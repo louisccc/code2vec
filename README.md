@@ -1,4 +1,4 @@
-# code2vec
+# Code2vec
 This is a python implementation of [code2vec](https://arxiv.org/pdf/1803.09473.pdf) that uses TensorFlow2.1 
 
 # Module Architecture
