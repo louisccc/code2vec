@@ -11,3 +11,10 @@ This is a python implementation of [code2vec](https://arxiv.org/pdf/1803.09473.p
 # To Get Started
 
 ## Set up the virtual environment using Anaconda.
+We recommend our potential users to use [Anaconda](https://www.anaconda.com/) as the primary virtual environment. 
+
+```shell
+$conda create --name [your environ name] python=3.6.8
+$conda activate [your environ name]
+$pip install -r requirements.txt
+```	
