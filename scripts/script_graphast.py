@@ -6,8 +6,8 @@ import traceback, sys
 
 sys.path.append('../')
 
-from core.graphast import Doc2vecDataExtractor, Code2vecDataExtractor
-from config.config import GraphASTArgParser, GraphASTConfig
+from utils.graphast import Doc2vecDataExtractor, Code2vecDataExtractor
+from configs.config import GraphASTArgParser, GraphASTConfig
 
 metas = ['title', 'framework', 'date', 'tags', 'stars', 'code', 'paper']
 
