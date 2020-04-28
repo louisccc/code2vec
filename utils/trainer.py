@@ -134,14 +134,14 @@ class Trainer:
                 false_positives += false_positive
                 false_negatives += false_negative
 
-        if true_positives + false_negatives != 0:
+        try:
             precision = true_positives / (true_positives + false_positives)
             recall = true_positives / (true_positives + false_negatives)
-            f1 = 2 * precision * recall / (precision + recall)
-        
-        if nr_predictions != 0:
+            f1 = 2 * precision * recall / (precision + recall)        
             prediction_rank /= nr_predictions
             prediction_reciprocal_rank /= nr_predictions
+        except ZeroDivisionError:
+            print("Divide by zero error during evaluation.")
 
         print("\nPrecision: {}, Recall: {}, F1: {} Rank: {} Reciprocal_Rank: {}\n".format(precision, recall, f1, prediction_rank, prediction_reciprocal_rank))
     
