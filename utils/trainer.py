@@ -1,7 +1,15 @@
+import tensorflow as tf
+from tqdm import tqdm
+
+from configs.config import Code2VecConfig
+from utils.batch_generator import PathContextReader, Generator
+from cores.code2vec import code2vec
+
+
 class Trainer:
     ''' the trainer for code2vec '''
     def __init__(self, path):
-        self.config = Config()
+        self.config = Code2VecConfig()
 
         self.reader = PathContextReader(path)
         self.reader.read_path_contexts()
@@ -77,6 +85,10 @@ class Trainer:
         prediction_reciprocal_rank = 0
         nr_predictions = 0
 
+        precision = 0
+        recall = 0
+        f1 = 0
+
         for batch_idx in range(self.test_batch_generator.number_of_batch):
 
             data, tag = next(self.test_batch_generator)
@@ -89,7 +101,7 @@ class Trainer:
             ranks = self.test_step(e1, p, e2)
             
             ranks_number = tf.where(tf.equal(self.test_step(e1, p, e2, topk=self.config.num_of_tags), tf.cast(tf.expand_dims(y,-1), dtype=tf.int32)))
-
+            
             for idx, rank_number in enumerate(ranks_number.numpy().tolist()): 
                 prediction_rank += (rank_number[1] + 1)
                 prediction_reciprocal_rank += 1.0 / (rank_number[1] + 1)
@@ -122,11 +134,14 @@ class Trainer:
                 false_positives += false_positive
                 false_negatives += false_negative
 
-        precision = true_positives / (true_positives + false_positives)
-        recall = true_positives / (true_positives + false_negatives)
-        f1 = 2 * precision * recall / (precision + recall)
-        prediction_rank /= nr_predictions
-        prediction_reciprocal_rank /= nr_predictions
+        if true_positives + false_negatives != 0:
+            precision = true_positives / (true_positives + false_positives)
+            recall = true_positives / (true_positives + false_negatives)
+            f1 = 2 * precision * recall / (precision + recall)
+        
+        if nr_predictions != 0:
+            prediction_rank /= nr_predictions
+            prediction_reciprocal_rank /= nr_predictions
 
         print("\nPrecision: {}, Recall: {}, F1: {} Rank: {} Reciprocal_Rank: {}\n".format(precision, recall, f1, prediction_rank, prediction_reciprocal_rank))
     

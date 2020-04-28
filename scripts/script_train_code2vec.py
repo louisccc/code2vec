@@ -1,13 +1,14 @@
-import sys, pickle, random
+import sys
+import pickle
+import random
+from pathlib import Path
 from sklearn.model_selection import train_test_split
 from sklearn.utils import shuffle
 
 
-sys.path.append('../../')
+sys.path.append('../')
 
-
-from core.code2vec import *
-
+from utils.trainer import Trainer
 
 def create_dataset_indexes(raw_data_path:Path, dataset_save_path:Path, filename):
     
@@ -347,4 +348,4 @@ def run_code2vec(dataset_path:str):
 
 if __name__ == "__main__":
     # parameterize path setting
-    run_code2vec('../../graphast_output')
+    run_code2vec('../graphast_output')

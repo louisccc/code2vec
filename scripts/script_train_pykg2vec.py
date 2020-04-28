@@ -10,7 +10,7 @@ from pykg2vec.config.config import Importer
 from pykg2vec.utils.trainer import Trainer
 
 sys.path.append('../..')
-from config.config import PyKG2VecArgParser
+from configs.config import PyKG2VecArgParser
 
 ''' 
     script_train_pykg2vec.py aims to run the trainer of pykg2vec and acquire the embeddings for nodes and edges. 

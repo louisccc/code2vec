@@ -1,3 +1,8 @@
+import pickle
+import numpy as np
+from pathlib import Path
+
+
 class PathContextReader:
     ''' class for preprocessing the data '''
     def __init__(self, path):
