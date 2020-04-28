@@ -62,10 +62,13 @@ class Doc2Vec:
         false_positives = 0
         false_negatives = 0
         nr_predictions = 0
+        
+        precision = 0
+        recall = 0
+        f1 = 0
 
         for tag, keywords_doc in self.test_corpus:
             nr_predictions += 1
-
             inferred_vector = self.model.infer_vector(keywords_doc)
             sims = self.model.docvecs.most_similar([inferred_vector], topn=10)
 
@@ -79,10 +82,14 @@ class Doc2Vec:
                 true_positives += sum(1 for subtoken in inferred_subtokens if subtoken in original_subtokens)
                 false_positives += sum(1 for subtoken in inferred_subtokens if subtoken not in original_subtokens)
                 false_negatives += sum(1 for subtoken in original_subtokens if subtoken not in inferred_subtokens)
+        
+        try:
+            precision = true_positives / (true_positives + false_positives)
+            recall = true_positives / (true_positives + false_negatives)
+            f1 = 2 * precision * recall / (precision + recall)
+        except ZeroDivisionError:
+            pass
 
-        precision = true_positives / (true_positives + false_positives)
-        recall = true_positives / (true_positives + false_negatives)
-        f1 = 2 * precision * recall / (precision + recall)
         print("Precision: {}, Recall: {}, F1: {}".format(precision, recall, f1))
 
     def save_model(self, fname):

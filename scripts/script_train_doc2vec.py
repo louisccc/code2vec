@@ -2,9 +2,9 @@ import gensim, sys
 from pathlib import Path
 from sklearn.model_selection import train_test_split
 
-sys.path.append('../..')
+sys.path.append('../')
 
-from cores.emb_doc2vec import Doc2Vec
+from cores.doc2vec import Doc2Vec
 
 def prepare_dataset(dataset_path: str, filename):
     
@@ -53,4 +53,4 @@ def run_doc2vec(dataset_path:str):
     import pdb; pdb.set_trace()
 
 if __name__ == "__main__":
-    run_doc2vec('../../graphast_output')
+    run_doc2vec('../graphast_output')
