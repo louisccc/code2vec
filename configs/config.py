@@ -64,13 +64,3 @@ class GraphASTConfig:
 
     def dump(self):
         pprint.pprint(self.__dict__)
-
-
-class PyKG2VecArgParser (KGEArgParser):
-    """The class implements the argument parser for the pykg2vec script."""
-
-    def __init__(self):
-        super().__init__()
-        self.general_group.set_defaults(dataset_name='lightweight')
-        self.general_group.add_argument('-tp', dest='triples_path', default=None, type=str, 
-                                        help='The path to output triples from lightweight method.')
