@@ -7,7 +7,7 @@ networkx==2.2
 rdflib==4.2.2
 requests==2.21.0
 scikit-learn==0.20.2
-tensorflow==2.1.0
+tensorflow==2.5.1
 showast==0.2.4
 gensim==3.8.1
 tqdm==4.45.0
